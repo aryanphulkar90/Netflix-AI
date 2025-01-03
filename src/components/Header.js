@@ -1,36 +1,57 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { auth } from '../utils/firebase';
 import { signOut } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { onAuthStateChanged  } from "firebase/auth";
+import { addUser, removeUser } from '../utils/userSlice'
+import { useDispatch } from 'react-redux'
+import { LOGO, USER_AVATAR } from '../utils/constants';
 
 const Header = () => {
+
   const navigate = useNavigate()
   
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const {uid, email, displayName} = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName}))
+        navigate("/browse")
+      } else {
+         dispatch(removeUser())
+         navigate("/")
+      }
+    })
+
+    return () => unsubscribe()
+  },[])
+
   const user = useSelector((store)=>store.user)
 
   const handleSignOut = () => {
     signOut(auth).then(() => {
-      navigate("/")
     }).catch((error) => {
       navigate("/error")
     });
     
   }
   return (
-    <div className="flex absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-full justify-between">
-        <img src='https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png'
+    <div className="flex absolute px-8 bg-gradient-to-b from-black z-10 w-full justify-between">
+        <img src = {LOGO}
          alt='logo'
          className="w-40"
          />
          {user && <div className="flex">
            <img
-             className="w-12 h-12 m-2 "
+             className="w-10 h-10 m-3"
              alt="userIcon"
-             src="https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp"
+             src = {USER_AVATAR}
            />
            <button 
-                className="text-white m-1 font-bold"
+                className="text-white m-1 font-bold text-sm"
                 onClick={handleSignOut}
            >Sign Out</button>
          </div>}
