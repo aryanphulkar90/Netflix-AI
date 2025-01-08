@@ -14,9 +14,6 @@ const VideoBackGround = ({movieId}) => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       >
       </iframe>
-      <div className="opacity:0 hidden"> 
-        <div className="ytp-title-text">This is the video title</div> 
-      </div> 
     </div>
   )
 }

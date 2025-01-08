@@ -5,6 +5,7 @@ import { auth } from "../utils/firebase"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BG_URL } from '../utils/constants';
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true)
@@ -65,25 +66,26 @@ const Login = () => {
     <div className="relative">
         <Header/>
         <div className="absolute">
-            <img src='https://assets.nflxext.com/ffe/siteui/vlv3/aa9edac4-a0e6-4f12-896e-32c518daec62/web/IN-en-20241223-TRIFECTA-perspective_1502c512-be5f-4f14-b21a-e3d75fe159ab_large.jpg'
+            <img 
+                src={BG_URL}
                 alt='Logo'/>
         </div>
-        <form onSubmit={(e)=>e.preventDefault()} className="px-9 py-6 w-3/12 absolute bg-black my-24 mx-auto right-0 left-0 text-white rounded-lg opacity-80">
-            <h1 className="font-bold text-2xl py-4">
+        <form onSubmit={(e)=>e.preventDefault()} className="px-6 py-3 w-3/12 absolute bg-black my-24 mx-auto right-0 left-0 text-white rounded-lg opacity-80">
+            <h1 className="font-bold text-lg py-4">
                 {isSignInForm ? "Sign In" : "Sign Up"}
             </h1>
-            {!isSignInForm && <input ref={name} type="text" placeholder="Full Name" className="p-2 my-4 w-full bg-gray-700 rounded-lg text-xs"/>}
-            <input type="text" placeholder="Email Address" className="p-2 my-4 w-full bg-gray-700 rounded-lg text-xs"
+            {!isSignInForm && <input ref={name} type="text" placeholder="Full Name" className="p-2 my-2 w-full bg-gray-700 rounded-lg text-[0.6rem] h-7"/>}
+            <input type="text" placeholder="Email Address" className="p-2 my-2 w-full bg-gray-700 rounded-lg text-[0.6rem] h-7"
                    ref={email}/>
-            <input type="password" placeholder="Password" className="p-2 my-4 w-full bg-gray-700 rounded-lg text-xs"
+            <input type="password" placeholder="Password" className="p-2 my-2 w-full bg-gray-700 rounded-lg text-[0.6rem] h-7"
                    ref={password}/>
-            <button className="bg-red-600 p-2 my-6 w-full rounded-lg text-xs"
+            <button className="bg-red-600 p-2 my-6 w-full rounded-lg text-[0.6rem] h-7"
                     onClick={handleButtonClick}
             >
                 {isSignInForm ? "Sign In" : "Sign Up"}
             </button>
-            {(errorMessage) && <p className="text-red-700 py-2 px-4 font-bold text-sm">{errorMessage}</p>}
-            <p className="py-2 cursor-pointer text-xs" onClick={handleToggle}> 
+            {(errorMessage) && <p className="text-red-700 py-2 px-4 font-bold text-[0.6rem]">{errorMessage}</p>}
+            <p className="py-2 cursor-pointer text-[0.6rem]" onClick={handleToggle}> 
                 {isSignInForm ? "New to Netflix? Sign Up Now" : "Already Registered? Sign In Now"}
             </p>
         </form>
