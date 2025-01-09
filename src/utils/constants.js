@@ -5,7 +5,7 @@ export const USER_AVATAR = "https://wallpapers.com/images/high/netflix-profile-p
 export const API_OPTIONS = {
     method: "GET",
     headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMzUxNGY2ZDEyNDE2ODE5MjBmMjkyODJmN2QxMmJlYyIsIm5iZiI6MTczNTgxNzA4Ny4wMTgsInN1YiI6IjY3NzY3NzdmMGEwMDdkOGVmMDEyN2Q2MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZtsKnB3OAGU3NfW4sZem90FVsvCc-sAnAD2pvUJJm3E',
+        'Authorization': "Bearer " + process.env.REACT_APP_TMDB_KEY,
         'accept': 'application/json'
     }
 }
@@ -19,3 +19,5 @@ export const SUPPORTED_LANGUAGES = [
     {identifier: "hindi", name: "Hindi"},
     {identifier: "spanish", name: "Spanish"}
 ]
+
+export const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY
