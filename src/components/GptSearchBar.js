@@ -31,10 +31,10 @@ const GptSearchBar = () => {
       
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             
-  //    const result = await model.generateContent(searchQuery);
-      const result = "RRR, Race, Liger, Gadar, Sholay"
+      const result = await model.generateContent(searchQuery);
+      //const result = "RRR, Race, Liger, Gadar, Sholay"
       
-      const movies = result.split(",");
+      const movies = result.response.text().split(",");
       
       const promiseArray = movies.map((movie)=>searchMovieTMDB(movie))
 
@@ -44,15 +44,15 @@ const GptSearchBar = () => {
   }
   return (
     <div className="pt-[10%] flex justify-center">
-        <form className="bg-black w-1/2 grid grid-cols-12"
+        <form className="bg-black w-full md:w-1/2 grid grid-cols-12 m-2"
               onSubmit={(e) => e.preventDefault()}>
             <input 
             ref={searchText}
             type="text" 
-            className="p-4 m-4 col-span-9" 
+            className="p-4 m-4 col-span-9 text-sm md:text-lg" 
             placeholder={lang[langKey].GptSearchPlaceholder}
             />
-            <button className="py-2 px-4 m-4 bg-red-700 text-white rounded-lg col-span-3"
+            <button className="py-2 px-2 m-4 bg-red-700 text-white rounded-lg col-span-3 text-sm md:text-lg"
                     onClick={handleGptSearchClick}
             >
             {lang[langKey].search}</button>

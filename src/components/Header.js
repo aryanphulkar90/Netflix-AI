@@ -51,31 +51,31 @@ const Header = () => {
   }
 
   return (
-    <div className="flex absolute px-8 bg-gradient-to-b from-black z-10 w-full justify-between">
+    <div className="flex absolute px-8 bg-gradient-to-b from-black z-10 w-full justify-between flex-col md:flex-row">
         <img src = {LOGO}
          alt='logo'
-         className="w-60 h-25"
+         className="w-60 h-25 mx-auto md:mx-0"
          />
-         {user && <div className="flex text-white">
-            {showGptSearch && <select className="h-10 my-6 mx-4 bg-black opacity-50 z-10 p-2"
+         {user && <div className="flex text-white justify-between md:items-center">
+            {showGptSearch && <select className="h-10 bg-black opacity-50 z-10 p-2 md:m-2"
                     onChange={handleLanguageChange}>
                {SUPPORTED_LANGUAGES.map((language)=> (
                 <option key={language.identifier} value={language.identifier}>{language.name}</option>
               ))} 
             </select>}
            <img
-             className="w-16 h-16 m-4"
+             className="hidden md:block w-16 h-16 md:m-2"
              alt="userIcon"
              src = {USER_AVATAR}
            />
            <button
-              className="bg-purple-900 text-white px-3 mt-8 mx-5 h-10 text-md rounded-md"
+              className="bg-purple-900 text-white px-3 h-10 text-md rounded-md md:m-2"
               onClick={handleGptSearchClick}
            >
            { (showGptSearch) ? "Home" : "GPT Search"}
            </button>
            <button 
-                className="text-white m-1 text-md font-bold"
+                className="text-white text-md font-bold md:m-2"
                 onClick={handleSignOut}
            >Sign Out</button>
          </div>}
